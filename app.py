@@ -20,26 +20,27 @@ app = Flask(__name__)
 #create a for loop to iterrate over name in new name
 #append to esisting name and strip name
 #print final list of names from esisting names using F string 
-# return the result using ','.join to esiting names
+# return the result using ', '.join to esiting names
 #run the app 
-#check the broswer at http://127.0.0.1:5001/names?add=Eddie
+#check the broswer at http://127.0.0.1:5001/names?add=Eddie,leo
 #check the terminal for print statements 
 @app.route('/names', methods = ['GET'])
-def get_add_name():
-    existing_name = ['Julia', 'Alice', 'Karim']
-    print(f" this is the existing list {existing_name}")
+def get_add_names():
+    existing_name = ['Alice', 'Julia', 'Karim']
+    print(f" This is the inital existing names{existing_name} ")
     add_name = request.args.get('add')
-    print(f"this is the name that will be added to the list {add_name}")
+    print(f" This is checking that the add function works {add_name}")
     if add_name:
         new_name = add_name.split(',')
-        print(f'checks name is returned as list {new_name}')
-        for name in new_name:
-            existing_name.append(name.strip())
-            print(f"checks that eddie has been added to list {existing_name}")
+        print(f" check that the names are returned as list {new_name}")
+    for name in new_name:
+        existing_name.append(name)
+        print(f"Checks that the names are added to existing list {existing_name}")
+        existing_name = sorted(existing_name)
+        print(f' The list of names should now be in order {existing_name}')
     updated_name = existing_name
-    print(f"This is the final list {updated_name}")
-    return','.join(updated_name)
-
+    print(f" This should be the final output {updated_name}")
+    return', '.join(updated_name)
 
 # These lines start the server if you run this file directly
 # They also start the server configured to use the test database
