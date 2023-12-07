@@ -11,8 +11,13 @@ from psycopg.rows import dict_row
 # That's why we have provided it!
 class DatabaseConnection:
     # VVV CHANGE BOTH OF THESE VVV
+<<<<<<< HEAD
     DEV_DATABASE_NAME = "artiststore"
     TEST_DATABASE_NAME = "artiststore_test"
+=======
+    DEV_DATABASE_NAME = "bookstore"
+    TEST_DATABASE_NAME = "bookstore_test"
+>>>>>>> 54b43fff3f8b7b2c780a605d139f8fe804278925
 
     def __init__(self, test_mode=False):
         self.test_mode = test_mode
