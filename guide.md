@@ -35,37 +35,46 @@
 *******ROUTE DESIGN******************
 include hhtp method, path and any query or body parameters and type eg string etc
 
-   POST/artists                                                             
+GET/artists
+    "Pixes\n" +
+    "ABBA\n" +
+    "Taylor Swift\n" +
+    "Nina Simone"
+
+(no content)
+
+POST/artists                                                             
     Parameters:
     artist_name: string
-    genre: number (str)
-    artist_id: number    (str)
-  Expected response (200 OK):       
-
-  GET/artists
+    genre: string
+    Expected response (200 OK):       
 
   **********CREATE SOME EXAMPLES**********
     
     Working
 
-    POST/artists
-    artist_name: ACDC
-    genre: Rock
-    artist_id: 2
-    Expected response (200 ok)
-
     GET/artists
     Expected response (200 ok)
-    Artists(1, Oasis, Rock, 1)
-    Artists(2, ACDC, Rock,  2)
+        "Pixes\n" +
+        "ABBA\n" +
+        "Taylor Swift\n" +
+        "Nina Simone"
+
+    POST/artists
+    name: Wild Nothing
+    genre: Indie
+    Expected response (200 ok)
+
 
     None working 
 
-      GET/albums
+      GET/artist
     Expected response (400 bad request) 
-    you need to submit a title, artis_name, release_year and artist_id
-     Artists(1, Oasis, Rock, 1)
-     Artists(2, ACDC, Rock,  2)
+    you need to submit an artist
+        "Pixes\n" +
+        "ABBA\n" +
+        "Taylor Swift\n" +
+        "Nina Simone"
 
 **********INITAL TEST**************
 
@@ -76,18 +85,20 @@ include hhtp method, path and any query or body parameters and type eg string et
 5) assert the response for status code 
 6) assert the response for data empty string
 
-def test_post_albums(db_connection, web_client):
-    db_connection.seed("seeds/record_store.sql")
-    post_response = web_client.post("/albums", data={
-        'title': 'Victorla',
-        'artist_name': 'Oasis',
-        'release_year': '1995',
-        'artist_id': '1'
-        })
+def test_get_artists(db_connection, web_client):
+    db_connection.seed("seeds/artiststore.sql")
+    response = web_client.get("/artists")
+    assert response.status_code == 200
+    assert response.data.decode("utf-8") == "\n".join([
+        "Pixes\n" +
+        "ABBA\n" +
+        "Taylor Swift\n" +
+        "Nina Simone"
+        ])
     assert post_response.status_code == 200
     assert post_response.data.decode('utf-8') == ''
 
-Code: @app.route('/albums', methods= ['POST'])
+Code: @app.route('/artist', methods= ['GET'])
 def post_album():
     return ""
 
@@ -140,5 +151,49 @@ The test should run in a way where it guides you through.
 2) create a new test file for method 
 Refer to previous work if stuck 
 test should guide you through 
+
+Create test for post
+    1) error messahe will then prompt you to create a POST method, return empty string for now
+    3) Set up databse connection (use previous code to make life easier)
+    4) Should now see you need to make a new Repo and also import it (once created)
+    You now need to unit test Artist Repo see below
+
+Create test for get 
+    2) error messages will then promt you to create a GET method, return as empty string for now
+    Carry on building code 
+        need set up a database connection (use previous code if stuck)
+
+
+Unit testing ArtistRepo
+    1) Create test_all method
+        create a repositroy and ensure pass db_connection
+        seed the db_connection to relevant seed path 
+        assert on repository.all and pass[] in what should be returned in this case Atists(1, artist_name, genre) 
+        Import relvent 
+        Follow errors
+        Youll now be led onto creating Artist file see below 
+    2) Now your going to finish creating the all method
+        create self.connection.execute pass the SQL into parameters SELECT * FROM artist;
+        Return Artists(row['id'] etc etc etc ) 
+        row loop
+        Errors should lead you back to Artist file jump their
+        
+
+Unit testing Artist file 
+    1) Create a test to see if all constructs 
+        create an instance of artist and set to a test Artist(1, 'test name', 'test genre)
+        assert the id name and genre and build the code in relvant file to pass 
+        jump back to artist repo and carry on
+    2) Create a test for equality 
+        update code so it passes in artist
+        now jump back to testing app.py
+
+
+
+
+
+
+
+
 
 

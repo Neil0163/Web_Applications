@@ -8,6 +8,7 @@ from lib.artists import Artists
 
 
 
+
 # Create a new Flask app
 app = Flask(__name__)
 
@@ -49,6 +50,8 @@ def has_invalid_album_parameters(form):
 ######## ARTISTS SECTION ################
 @app.route('/artists', methods = ['POST'])
 def post_artist():
+    if 'artist_name' not in request.form or 'genre' not in request.form:
+        return 'You need to submit an artist', 400
     connection = get_flask_database_connection(app)
     repository = ArtistRepository(connection)
     artist = Artists(

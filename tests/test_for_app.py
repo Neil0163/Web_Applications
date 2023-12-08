@@ -51,11 +51,21 @@ def test_for_post_artist(db_connection, web_client):
     expected_response = 'Pixes, ABBA, Taylor Swift, Nina Simone, Wild Nothing'
     assert get_response.data.decode('utf-8') == expected_response
     
-    
 def test_get_artists(db_connection, web_client):
     db_connection.seed("seeds/artiststore.sql")
     response = web_client.get("/artists")
     assert response.status_code == 200
     assert response.data.decode("utf-8") == (
-        'Pixes, ABBA, Taylor Swift, Nina Simone'
+    'Pixes, ABBA, Taylor Swift, Nina Simone'
     )
+    
+def test_for_artist_with_no_data(db_connection, web_client):
+    db_connection.seed("seeds/artiststore.sql")
+    response = web_client.post("/artists" ) 
+    assert response.status_code == 400
+    expected_response = 'You need to submit an artist'
+    assert response.data.decode('utf-8') == expected_response
+    get_response = web_client.get('/artists')
+    assert get_response.status_code == 200
+    expected_response = 'Pixes, ABBA, Taylor Swift, Nina Simone'
+    assert get_response.data.decode('utf-8') == expected_response
