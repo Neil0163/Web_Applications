@@ -15,3 +15,6 @@ To resolve, ensure the arguments are called in the code
 
 Psycopg error raise traceback - error within psycopg not running correct
 To resolve check the sql is typed correctley 
+
+Assert 404 not found 
+To resolve create the http request 

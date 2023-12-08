@@ -1,18 +1,19 @@
-from lib.artists import Artists
-
+from lib.artists import Artist
 class ArtistRepository:
     def __init__(self, connection):
         self._connection = connection
+        
     def all(self):
-        rows = self._connection.execute('SELECT * FROM artists;')
+        rows = self._connection.execute("SELECT * FROM artists")
         return[
-            Artists(row['id'], row['artist_name'], row['genre'])
+            Artist(row['id'], row['artist_name'], row['genre'])
             for row in rows
         ]
-        
-    def create(self, artists):
+    
+    def create(self ,artist):
         self._connection.execute(
-            "INSERT INTO artists (artist_name, genre) VALUES (%s, %s)", 
-            [artists.artist_name, artists.genre]
+            "INSERT INTO artists (artist_name, genre) VALUES (%s, %s)",
+            [artist.artist_name, artist.genre]
         )
         return None
+        

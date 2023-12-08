@@ -37,35 +37,26 @@ def test_for_album_with_no_data(db_connection, web_client):
     assert get_response.data.decode('utf-8') == '' \
         "Album(1, MasterPlan, 2005, 1)"
 ############# ARTIST TEST #####################################
-
 def test_for_post_artist(db_connection, web_client):
-    db_connection.seed("seeds/artiststore.sql")
-    post_response = web_client.post('/artists', data={
-        'artist_name': 'Wild Nothing', 
+    db_connection.seed ('seeds/artiststore.sql')
+    post_response = web_client.post('/artists', data ={
+        'artist_name': 'Wild Nothing',
         'genre': 'Indie'
     })
-    assert post_response.status_code == 200
+    assert post_response.status_code ==200
     assert post_response.data.decode('utf-8') == ''
-    get_response = web_client.get('/artists')
-    assert get_response.status_code == 200
-    expected_response = 'Pixes, ABBA, Taylor Swift, Nina Simone, Wild Nothing'
-    assert get_response.data.decode('utf-8') == expected_response
+    get_response =web_client.get('/artists')
+    assert get_response.status_code == 200 
+    exp_response = 'Pixes, ABBA, Taylor Swift, Nina Simone, Wild Nothing'
+    assert get_response.data.decode('utf-8')== exp_response
     
-def test_get_artists(db_connection, web_client):
-    db_connection.seed("seeds/artiststore.sql")
-    response = web_client.get("/artists")
-    assert response.status_code == 200
-    assert response.data.decode("utf-8") == (
-    'Pixes, ABBA, Taylor Swift, Nina Simone'
-    )
-    
-def test_for_artist_with_no_data(db_connection, web_client):
-    db_connection.seed("seeds/artiststore.sql")
-    response = web_client.post("/artists" ) 
-    assert response.status_code == 400
-    expected_response = 'You need to submit an artist'
-    assert response.data.decode('utf-8') == expected_response
+def test_artist_with_no_data(db_connection, web_client):
+    db_connection.seed('seeds/artiststore.sql')
+    response = web_client.post('/artists')
+    assert response.status_code == 400 
+    exp_response = "error BAD request, please submit artist_name and genre"
+    assert response.data.decode('utf-8') == exp_response
     get_response = web_client.get('/artists')
-    assert get_response.status_code == 200
-    expected_response = 'Pixes, ABBA, Taylor Swift, Nina Simone'
-    assert get_response.data.decode('utf-8') == expected_response
+    assert get_response.status_code == 200 
+    exp_response = 'Pixes, ABBA, Taylor Swift, Nina Simone'
+    assert get_response.data.decode('utf-8')== exp_response 

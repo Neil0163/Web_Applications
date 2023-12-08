@@ -4,9 +4,7 @@ from lib.album_repository import AlbumRepository
 from lib.database_connection import get_flask_database_connection
 from lib.album import Album
 from lib.artists_repository import ArtistRepository
-from lib.artists import Artists
-
-
+from lib.artists import Artist
 
 
 # Create a new Flask app
@@ -48,30 +46,30 @@ def has_invalid_album_parameters(form):
         'artist_id' not in form
         
 ######## ARTISTS SECTION ################
-@app.route('/artists', methods = ['POST'])
+@app.route("/artists", methods = ['POST'])
 def post_artist():
     if 'artist_name' not in request.form or 'genre' not in request.form:
-        return 'You need to submit an artist', 400
+        return "error BAD request, please submit artist_name and genre", 400
     connection = get_flask_database_connection(app)
     repository = ArtistRepository(connection)
-    artist = Artists(
+    artist = Artist(
         None,
         request.form['artist_name'],
         request.form['genre'])
     repository.create(artist)
-    return '', 200
-    
-@app.route('/artists', methods=['GET'])
-def get_artists():
+    return'', 200
+
+@app.route('/artists', methods = ['GET'])
+def get_artist():
     connection = get_flask_database_connection(app)
     repository = ArtistRepository(connection)
-    artists = repository.all()
-    artist_names = [artist.artist_name for artist in artists]
-    return ', '.join(artist_names), 200
-
+    artist = repository.all()
+    artist_names = [artist.artist_name for artist in artist]
+    return', '.join(artist_names), 200
 
 # These lines start the server if you run this file directly
 # They also start the server configured to use the test database
 # if started in test mode.
 if __name__ == '__main__':
     app.run(debug=True, port=int(os.environ.get('PORT', 5001)))
+    

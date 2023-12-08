@@ -152,41 +152,42 @@ The test should run in a way where it guides you through.
 Refer to previous work if stuck 
 test should guide you through 
 
-Create test for post
-    1) error messahe will then prompt you to create a POST method, return empty string for now
-    3) Set up databse connection (use previous code to make life easier)
-    4) Should now see you need to make a new Repo and also import it (once created)
-    You now need to unit test Artist Repo see below
+Create test for post:
+    seed the db connection
+    set up web_clinet.post 
+    set up assert for status code and body data 
 
+    create inital code too pass
+
+
+
+Carry on building app.py code, passing a connection to Get, youll be pushed to create Rpository. 
+Start to build repository creating a test for all, follow errors. 
+Youll notice you need to create Artist file and run test for Artist this will be your 'model" file so it will need test for 
+    construct (initaite object), equality, formatting test (dont rush ahead allow errors to guide)
+Come back and finish off all method executing SQL 
+youll now need to do your test for eq 
+All should be working well...go test the app
+Notice now youll need to carry on building code in app finish the all() in GET request
+Youll now be promted through error to come back to artist and create code for formatting
+Once this is done youll then see that Wild Nothing will become an error this is because its a test and function hasnt been made too add 
+Follow the errors for creaate youll need to execute SQL again
 Create test for get 
-    2) error messages will then promt you to create a GET method, return as empty string for now
-    Carry on building code 
-        need set up a database connection (use previous code if stuck)
+    seed the db connection 
+    set up web_client.get
+    set up assert for status code and data
+    add these asserts to post 
+    
+Next start driving out the POST route behaviour 
+Test should now all pass
+Create test for error 400 (copy pasting code from POST route with slight modifications)
+Modify POST route to account for BAD request
 
 
-Unit testing ArtistRepo
-    1) Create test_all method
-        create a repositroy and ensure pass db_connection
-        seed the db_connection to relevant seed path 
-        assert on repository.all and pass[] in what should be returned in this case Atists(1, artist_name, genre) 
-        Import relvent 
-        Follow errors
-        Youll now be led onto creating Artist file see below 
-    2) Now your going to finish creating the all method
-        create self.connection.execute pass the SQL into parameters SELECT * FROM artist;
-        Return Artists(row['id'] etc etc etc ) 
-        row loop
-        Errors should lead you back to Artist file jump their
-        
 
-Unit testing Artist file 
-    1) Create a test to see if all constructs 
-        create an instance of artist and set to a test Artist(1, 'test name', 'test genre)
-        assert the id name and genre and build the code in relvant file to pass 
-        jump back to artist repo and carry on
-    2) Create a test for equality 
-        update code so it passes in artist
-        now jump back to testing app.py
+    
+
+
 
 
 

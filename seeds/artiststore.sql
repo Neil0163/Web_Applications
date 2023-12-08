@@ -6,8 +6,7 @@ CREATE SEQUENCE IF NOT EXISTS artists_id_seq;
 CREATE TABLE artists (
   id SERIAL PRIMARY KEY,
   artist_name text,
-  genre text,
-  artist_id int
+  genre text
 );
 
 INSERT INTO artists (artist_name, genre) VALUES ('Pixes', 'Indie');

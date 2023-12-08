@@ -1,16 +1,16 @@
-from lib.artists import Artists
+from lib.artists import Artist
 
-def test_for_constructs_artist():
-    artists = Artists(1, 'Test Name', 'Test Genre')
-    assert artists.id == 1 
-    assert artists.artist_name == 'Test Name'
-    assert artists.genre == 'Test Genre'
+def test_for_construct():
+    artist = Artist(1, 'TestName', 'TestGenre')
+    assert artist.id == 1
+    assert artist.artist_name == 'TestName'
+    assert artist.genre == 'TestGenre'
     
-def test_for_equality():
-    artist_1 = Artists(1, 'Test Name', 'Test Genre') 
-    artist_2 = Artists(1, 'Test Name', 'Test Genre')
+def test_for_eq():
+    artist_1 = Artist(1, 'TestName', 'TestGenre')
+    artist_2 = Artist(1, 'TestName', 'TestGenre')
     assert artist_1 == artist_2
     
 def test_for_formatting():
-    artists = Artists(1,'Test Name', 'Test Genre') 
-    assert str(artists) == "Artists(1, Test Name, Test Genre)"
+    artist = Artist(1, 'TestName', 'TestGenre')
+    assert str(artist) == "Artist(1, TestName, TestGenre)"
